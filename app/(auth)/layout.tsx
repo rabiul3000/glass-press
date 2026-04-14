@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import Sidebar from "@/components/Sidebar";
-import Others from "@/components/Others";
+import "../globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,11 +13,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Glass Press | Home",
+  title: {
+    template: "Glass Press | %s",
+    default: "Glass Press",
+  },
   description: "See through news",
 };
 
-export default function RootLayout({
+export default function AuthLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -29,15 +30,9 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body>
-        <div className="w-8/12 mx-auto flex justify-around h-screen">
-          <div className="border-r border-gray-300 w-3/12">
-            <Sidebar />
-          </div>
-          <div className="w-6/12">{children}</div>
-          <div className="border-l w-3/12  border-gray-300">
-            <Others />
-          </div>
+      <body className="bg-gray-800">
+        <div className="mx-auto flex justify-center py-24 h-screen">
+          {children}
         </div>
       </body>
     </html>

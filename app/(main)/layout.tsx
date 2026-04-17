@@ -4,6 +4,7 @@ import "../globals.css";
 import Sidebar from "@/components/Sidebar";
 import Others from "@/components/Others";
 import { createServer } from "@/lib/supabase/server";
+import { AuthProvider } from "@/providers/AuthProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +30,9 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const supabase = await createServer();
-  const user = (await supabase.auth.getUser()).data.user;
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   return (
     <html
@@ -37,15 +40,17 @@ export default async function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body>
-        <div className="w-8/12 mx-auto flex justify-around h-screen">
-          <div className="border-r border-gray-300 w-3/12">
-            <Sidebar user={user} />
+        <AuthProvider initialUser={user}>
+          <div className="w-8/12 mx-auto flex justify-around h-screen">
+            <div className="border-r border-gray-300 w-3/12">
+              <Sidebar />
+            </div>
+            <div className="w-6/12">{children}</div>
+            <div className="border-l w-3/12  border-gray-300">
+              <Others />
+            </div>
           </div>
-          <div className="w-6/12">{children}</div>
-          <div className="border-l w-3/12  border-gray-300">
-            <Others />
-          </div>
-        </div>
+        </AuthProvider>
       </body>
     </html>
   );

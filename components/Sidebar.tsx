@@ -3,9 +3,12 @@ import { sidebarLinks } from "@/constants/constants";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import UserBtn from "./UserBtn";
+import { useAuth } from "@/providers/AuthProvider";
 
-const Sidebar = ({ user }: any) => {
+const Sidebar = () => {
   const pathName = usePathname();
+  const { user } = useAuth();
+  
 
   return (
     <aside className="flex flex-col justify-between items-center h-full w-full ">
@@ -29,7 +32,7 @@ const Sidebar = ({ user }: any) => {
       </div>
       <div className="h-2/12  w-full mb-2 flex justify-center items-center">
         {user ? (
-          <UserBtn user={user} />
+          <UserBtn />
         ) : (
           <Link
             href={"/login"}

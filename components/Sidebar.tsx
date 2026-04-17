@@ -2,8 +2,9 @@
 import { sidebarLinks } from "@/constants/constants";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import UserBtn from "./UserBtn";
 
-const Sidebar = () => {
+const Sidebar = ({ user }: any) => {
   const pathName = usePathname();
 
   return (
@@ -27,12 +28,22 @@ const Sidebar = () => {
         </div>
       </div>
       <div className="h-2/12  w-full mb-2 flex justify-center items-center">
-        <Link
-          href="/login"
-          className="w-5/6 text-center bg-gray-900 py-4 rounded-full text-white font-semibold hover:bg-gray-800 active:bg-slate-200 active:text-gray-900 transition-colors duration-300"
-        >
-          Log In
-        </Link>
+        {user ? (
+          <UserBtn user={user} />
+        ) : (
+          <Link
+            href={"/logout"}
+            className="w-5/6 active:w-4/6 text-center
+           bg-gray-900 py-4 rounded-full text-white font-semibold
+           hover:bg-gray-800
+           active:bg-slate-200
+           active:text-gray-900
+             transition-all
+             duration-200"
+          >
+            Logout
+          </Link>
+        )}
       </div>
     </aside>
   );

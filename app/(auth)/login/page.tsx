@@ -1,4 +1,6 @@
-import { GithubIcon, AppleIcon, GoogleIcon } from "@/helpers/Icons";
+import AppleLoginBtn from "@/components/AppleLoginBtn";
+import GithubLoginBtn from "@/components/GithubLoginBtn";
+import GoogleLoginBtn from "@/components/GoogleLoginBtn";
 import { ArrowLeftCircleIcon, BrainCog } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -17,28 +19,37 @@ const Login = () => {
       </div>
 
       <div>
-        <h1 className="text-4xl font-semibold">Login to Glass Press</h1>
+        <h1 className="text-4xl font-semibold">Glass Press Start</h1>
       </div>
 
       <div className="flex w-full flex-col gap-6 justify-center items-center">
-        <button className="w-1/2 bg-white text-black rounded-full p-3 flex gap-2 justify-center items-center active:bg-slate-800 hover:bg-slate-300 transition-colors duration-200">
-          <GoogleIcon /> Login with Google
-        </button>
-        <button className="w-1/2 bg-white text-black rounded-full p-3 flex gap-2 justify-center items-center active:bg-slate-800 hover:bg-slate-300 transition-colors duration-200">
-          <AppleIcon /> Login with Apple
-        </button>
-        <button className="w-1/2 bg-white text-black rounded-full p-3 flex gap-2 justify-center items-center active:bg-slate-800 hover:bg-slate-300 transition-colors duration-200">
-          <GithubIcon /> Login with Github
-        </button>
+        <GoogleLoginBtn />
+        <AppleLoginBtn />
+        <GithubLoginBtn />
       </div>
 
-      <div className="flex flex-col h-full justify-end item-end p-24">
-        <p className="text-gray-400">
-          Don&apos;t have an account?{" "}
-          <Link href="/register" className="text-blue-400">
-            Register here.{" "}
-          </Link>
-        </p>
+      <div className="flex h-full justify-center items-center">
+        <div className="w-1/2">
+          <p className="text-sm">
+            By signing in, you agree to the{" "}
+            <Link href="/terms" className="text-blue-400">
+              Terms of Service {" "}
+            </Link>
+            and{" "}
+            <Link className="text-blue-400" href="/policy">
+              {" "}
+              Privacy Policy. {" "}
+            </Link>
+            including {" "}
+            <Link className="text-blue-400" href="/cookie">
+              Cookie Use.
+            </Link>
+          </p>
+        </div>
+
+       
+
+
       </div>
     </div>
   );

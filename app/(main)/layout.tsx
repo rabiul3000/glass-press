@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import Sidebar from "@/components/Sidebar";
 import Others from "@/components/Others";
+import { createServer } from "@/lib/supabase/server";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,11 +23,14 @@ export const metadata: Metadata = {
   description: "See through news",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const supabase = await createServer();
+  const user = (await supabase.auth.getUser()).data.user;
+
   return (
     <html
       lang="en"
@@ -35,7 +39,7 @@ export default function RootLayout({
       <body>
         <div className="w-8/12 mx-auto flex justify-around h-screen">
           <div className="border-r border-gray-300 w-3/12">
-            <Sidebar />
+            <Sidebar user={user} />
           </div>
           <div className="w-6/12">{children}</div>
           <div className="border-l w-3/12  border-gray-300">

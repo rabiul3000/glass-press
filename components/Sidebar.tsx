@@ -32,7 +32,7 @@ const Sidebar = ({ user }: any) => {
           <UserBtn user={user} />
         ) : (
           <Link
-            href={"/logout"}
+            href={"/login"}
             className="w-5/6 active:w-4/6 text-center
            bg-gray-900 py-4 rounded-full text-white font-semibold
            hover:bg-gray-800
@@ -41,7 +41,7 @@ const Sidebar = ({ user }: any) => {
              transition-all
              duration-200"
           >
-            Logout
+            Login
           </Link>
         )}
       </div>

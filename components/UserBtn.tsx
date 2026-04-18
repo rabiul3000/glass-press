@@ -21,12 +21,7 @@ const UserBtn = () => {
   const { user, loading } = useAuth();
   const router = useRouter();
 
-  const handleLogout = async () => {
-    const supabase = createClient();
-    await supabase.auth.signOut();
-    router.refresh();
-  };
-
+ 
   if (loading) {
     return (
       <div className="w-5/6 py-4 rounded-full bg-gray-100 animate-pulse" />
@@ -80,7 +75,7 @@ const UserBtn = () => {
           <DropdownMenuGroup>
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
 
-            <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => router.push("/logout")}>Logout</DropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>

@@ -1,8 +1,8 @@
 import type { NextRequest } from "next/server";
-import { authMiddleware } from "./lib/middleware/auth";
+import { authProxy } from "./lib/proxy/auth";
 
-export async function middleware(req: NextRequest) {
-    return authMiddleware(req);
+export async function proxy(req: NextRequest) {
+    return authProxy(req);
 }
 
 export const config = {

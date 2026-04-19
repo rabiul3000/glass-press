@@ -1,4 +1,157 @@
-# OpenPress: 10-Week Development Roadmap
+
+
+## The Big Picture: Where We Are vs. Where We're Going
+
+| Phase | Status | What's Next |
+|-------|--------|-------------|
+| ✅ Authentication | Complete | Google Sign-In, Logout, User sessions |
+| ⏳ News Pipeline | **Next** | Fetch, generate, publish articles |
+| ⏳ AI Agents | After pipeline | Tech, Politics, Sports agents |
+| ⏳ Frontend Feed | Parallel | Display articles to users |
+| ⏳ Transparency Features | Later | Sources, bias heatmap, confidence scores |
+
+---
+
+## Immediate Next Steps (Week 3 of Your Roadmap)
+
+Based on your 10-week roadmap, here's what you should build now:
+
+### Step 1: Set Up News Fetching (Day 1-2)
+
+Create the system that pulls raw news from external sources.
+
+**What to build:**
+- An API route that fetches from NewsAPI or Mediastack (free tier)
+- RSS feed parser for BBC, Reuters, Al Jazeera
+- A database table to store fetched articles before AI processing
+
+**Deliverable:** A manual trigger that fetches 10-20 news articles and stores them in your database.
+
+### Step 2: Create the AI Summarization Pipeline (Day 3-4)
+
+Connect an LLM to turn raw news into Glass Press articles.
+
+**What to build:**
+- Integration with Groq (fast, free tier) or Gemini (free)
+- A prompt that instructs the AI to rewrite news neutrally
+- Storage for the generated article alongside the original source
+
+**Deliverable:** A button that takes a raw article and generates a Glass Press version.
+
+### Step 3: Build the Article Feed (Day 5-7)
+
+Display the generated articles to users.
+
+**What to build:**
+- Homepage that shows articles in reverse chronological order
+- Individual article page with full content
+- Basic styling matching your Twitter/X-style vision
+
+**Deliverable:** Users can see AI-generated articles when they visit Glass Press.
+
+---
+
+## Technical Implementation Order
+
+Here's exactly what to code, in order:
+
+### 1. Database Tables (Run in Supabase SQL Editor)
+
+Add these tables to store news and articles:
+
+```sql
+-- Raw news fetched from external sources
+CREATE TABLE raw_news (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    title TEXT NOT NULL,
+    content TEXT,
+    source_url TEXT UNIQUE,
+    source_domain TEXT,
+    fetched_at TIMESTAMPTZ DEFAULT NOW(),
+    processed BOOLEAN DEFAULT FALSE
+);
+
+-- Final AI-generated articles
+CREATE TABLE articles (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    title TEXT NOT NULL,
+    content TEXT NOT NULL,
+    summary TEXT,
+    agent_id VARCHAR(50) DEFAULT 'tech_agent',
+    source_url TEXT,
+    source_domain TEXT,
+    confidence_score FLOAT,
+    published_at TIMESTAMPTZ DEFAULT NOW(),
+    view_count INT DEFAULT 0
+);
+
+-- Enable RLS
+ALTER TABLE raw_news ENABLE ROW LEVEL SECURITY;
+ALTER TABLE articles ENABLE ROW LEVEL SECURITY;
+
+-- Anyone can read articles
+CREATE POLICY "Anyone can read articles" ON articles
+    FOR SELECT USING (true);
+```
+
+### 2. News Fetching API Route
+
+Create `app/api/news/fetch/route.ts` — this will fetch from RSS feeds and NewsAPI.
+
+### 3. AI Generation API Route
+
+Create `app/api/news/generate/route.ts` — this will call Groq/Gemini to rewrite news.
+
+### 4. Frontend Pages
+
+- Modify `app/page.tsx` to display articles from the database
+- Create `app/article/[id]/page.tsx` for individual articles
+
+---
+
+## Quick Start: The Simplest First Step
+
+Instead of building everything at once, start with this **minimal pipeline**:
+
+1. **Manually add a test article** directly in Supabase (insert a row)
+2. **Display it on your homepage** (query the articles table)
+3. **Then replace manual with AI** once the display works
+
+This way you're never stuck — you always have something working.
+
+---
+
+## What You Need from Me
+
+Choose your path:
+
+| Option | What I'll Provide |
+|--------|-------------------|
+| **A. Full pipeline code** | Complete API routes for fetching + AI generation |
+| **B. Start with display** | Homepage and article page code first, AI later |
+| **C. AI integration only** | Just the Groq/Gemini summarization code |
+
+**I recommend Option B** — get articles showing on the frontend first (even manually entered), then connect AI. It's faster to see progress.
+
+---
+
+## Your Next Action
+
+Reply with one of these:
+
+- **"Give me the homepage feed code"** — I'll provide the Next.js page that displays articles
+- **"Give me the AI summarization code"** — I'll provide the Groq/Gemini integration
+- **"Give me the full pipeline"** — I'll provide everything at once
+
+Or just say **"Continue with the roadmap"** and I'll give you the exact code for Day 1 of Week 3.
+
+Which direction do you want to go?
+
+
+
+
+
+<!-- # OpenPress: 10-Week Development Roadmap
 
 Here is your **day-by-day** roadmap to build OpenPress as a solo developer. This plan assumes you can dedicate **4-6 hours daily** (evenings/weekends) and follows the proven patterns from existing Next.js + Supabase projects .
 
@@ -716,4 +869,4 @@ git add .
 git commit -m "Initial commit: OpenPress begins"
 ```
 
-Then go to Day 1 and start building! You've got this. 🚀
+Then go to Day 1 and start building! You've got this. 🚀 -->

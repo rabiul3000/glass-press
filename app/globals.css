@@ -124,3 +124,23 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Custom scrollbar */
+/* 
+::-webkit-scrollbar {
+  @apply w-0.5;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 rounded-b-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-200;
+}
+
+*/

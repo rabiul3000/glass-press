@@ -41,11 +41,13 @@ export default async function RootLayout({
     >
       <body>
         <AuthProvider initialUser={user}>
-          <div className="w-8/12 mx-auto flex justify-around h-screen">
+          <div className="w-8/12 mx-auto flex justify-around h-screen overflow-hidden">
             <div className="border-r border-gray-300 w-3/12">
               <Sidebar />
             </div>
-            <div className="w-6/12">{children}</div>
+            <div className="w-6/12 overflow-y-scroll scroll-smooth no-scrollbar">
+              {children}
+            </div>
             <div className="border-l w-3/12  border-gray-300">
               <Others />
             </div>

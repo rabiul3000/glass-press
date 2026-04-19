@@ -8,7 +8,6 @@ import { useAuth } from "@/providers/AuthProvider";
 const Sidebar = () => {
   const pathName = usePathname();
   const { user } = useAuth();
-  
 
   return (
     <aside className="flex flex-col justify-between items-center h-full w-full ">

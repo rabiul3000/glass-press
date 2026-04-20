@@ -4,6 +4,8 @@ import { IArticle } from "@/types/IArticle";
 import { useEffect, useState } from "react";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { BarChart2, Heart, MessageCircle, Share2 } from "lucide-react";
+import { Spinner } from "../ui/spinner";
+import { Button } from "../ui/button";
 
 const Articles = () => {
   const [articles, setArticles] = useState<IArticle[]>([]);
@@ -29,7 +31,15 @@ const Articles = () => {
     fetchArticles();
   }, []);
 
-  if (loading) return <p className="p-8 text-center">Loading articles...</p>;
+  if (loading)
+    return (
+      <div className="p-8 flex justify-center items-center">
+        <Button variant="outline" disabled size="lg">
+          <Spinner data-icon="inline-start" className="size-8" />
+          Please wait
+        </Button>
+      </div>
+    );
 
   return (
     <main className="max-w-2xl mx-auto border-x">

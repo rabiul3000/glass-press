@@ -16,13 +16,14 @@ const Articles = () => {
     const fetchArticles = async () => {
       setLoading(true);
       const { data, error } = await supabase
-        .from("articles")
+        .from("posts")
         .select("*")
         .order("published_at", { ascending: false });
 
       if (error) {
         console.error("Error fetching articles:", error);
       } else {
+        console.log(data);
         setArticles(data || []);
       }
       setLoading(false);
@@ -70,7 +71,7 @@ const Articles = () => {
             <h2 className="font-semibold text-lg mt-1">{article.title}</h2>
 
             {/* Summary */}
-            <p className="text-gray-700 mt-1 line-clamp-3">{article.summary}</p>
+            <p className="text-gray-700 mt-1">{article.content}</p>
 
             {/* Optional Image (only if you actually have one) */}
             {article.image_url && (
@@ -80,6 +81,7 @@ const Articles = () => {
                 className="mt-3 rounded-xl border"
               />
             )}
+            
 
             {/* Footer actions */}
             {/* Footer actions */}

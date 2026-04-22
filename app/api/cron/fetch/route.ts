@@ -7,7 +7,14 @@ export async function GET() {
     const raw = await fetchAllNews();
     const articles = normalizeArticles(raw);
 
-    await supabase.from("raw_articles").upsert(articles, { onConflict: "link" });
+    const { data, error } = await supabase
+        .from("raw_news")
+        .upsert(articles, { onConflict: "source_url" });
+
+    if (error) {
+        console.error("SUPABASE INSERT ERROR:", error);
+    }
+
 
     return Response.json({ inserted: articles.length });
 }

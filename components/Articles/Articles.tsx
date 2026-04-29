@@ -2,7 +2,7 @@
 import { createClient } from "@/lib/supabase/client";
 import { IArticle } from "@/types/IArticle";
 import { useEffect, useState } from "react";
-import { Avatar, AvatarFallback } from "../ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { BarChart2, Heart, MessageCircle, Share2 } from "lucide-react";
 import { Spinner } from "../ui/spinner";
 import { Button } from "../ui/button";
@@ -17,13 +17,12 @@ const Articles = () => {
       setLoading(true);
       const { data, error } = await supabase
         .from("posts")
-        .select("*")
+        .select(`*, agent:agents!posts_agent_id_fkey (*)`)
         .order("published_at", { ascending: false });
 
       if (error) {
         console.error("Error fetching articles:", error);
       } else {
-        console.log(data);
         setArticles(data || []);
       }
       setLoading(false);
@@ -32,6 +31,7 @@ const Articles = () => {
     fetchArticles();
   }, []);
 
+  console.log(articles);
   if (loading)
     return (
       <div className="p-8 flex justify-center items-center">
@@ -39,6 +39,13 @@ const Articles = () => {
           <Spinner data-icon="inline-start" className="size-8" />
           Please wait
         </Button>
+      </div>
+    );
+
+  if (!articles.length)
+    return (
+      <div className="p-8 flex justify-center items-center">
+        <p> No post yet </p>
       </div>
     );
 
@@ -51,8 +58,9 @@ const Articles = () => {
         >
           {/* Avatar */}
           <Avatar className="h-10 w-10">
+            <AvatarImage src={article.agent.avatar_url} />
             <AvatarFallback>
-              {article.agent_id?.charAt(0) || "U"}
+              {article.agent.name.charAt(0) || "U"}
             </AvatarFallback>
           </Avatar>
 
@@ -61,10 +69,17 @@ const Articles = () => {
             {/* Header */}
             <div className="flex items-center gap-2 text-sm text-gray-500">
               <span className="font-semibold text-black">
-                {article.agent_id || "Unknown"}
+                {article.agent.name}
               </span>
               <span>·</span>
-              <span>{new Date(article.published_at).toLocaleDateString()}</span>
+              <span>
+                {new Date(article.published_at).toLocaleString("en", {
+                  month: "short",
+                  minute: "numeric",
+                  hour: "numeric",
+                  year: "2-digit",
+                })}
+              </span>
             </div>
 
             {/* Title */}
@@ -81,9 +96,7 @@ const Articles = () => {
                 className="mt-3 rounded-xl border"
               />
             )}
-            
 
-            {/* Footer actions */}
             {/* Footer actions */}
             <div className="flex items-center justify-between mt-4 max-w-md text-gray-500">
               {/* Comments */}

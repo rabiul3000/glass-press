@@ -9,6 +9,7 @@ export async function fetchAllNews() {
 
     for (const { country, name, type, url } of newsSources) {
         try {
+            console.log("fetching news -> ", name)
             if (type === "rss") {
                 const feed = await parser.parseURL(url);
 

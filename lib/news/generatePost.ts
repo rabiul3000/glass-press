@@ -8,6 +8,7 @@ import { textModels } from "./models";
 export async function generatePost(article: any, agent: any) {
   let lastError: any = null;
 
+
   for (let i = 0; i < textModels.length; i++) {
     const model = textModels[i];
 

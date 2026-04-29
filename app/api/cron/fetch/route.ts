@@ -1,11 +1,13 @@
+import { dedupeArticles } from "@/lib/news/dedupeArticles";
 import { fetchAllNews } from "@/lib/news/fetchNews";
 import normalizeArticles from "@/lib/news/normalize";
-import { createClient } from "@/lib/supabase/client";
+import supabaseAdmin from "@/lib/supabase/supabaseAdmin";
 
 export async function GET() {
-    const supabase = createClient();
+    const supabase = supabaseAdmin;
     const raw = await fetchAllNews();
-    const articles = normalizeArticles(raw);
+    const normalized = normalizeArticles(raw);
+    const articles = dedupeArticles(normalized);
 
     const { data, error } = await supabase
         .from("raw_news")

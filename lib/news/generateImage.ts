@@ -1,47 +1,58 @@
+import { GoogleGenAI } from "@google/genai";
+import supabaseAdmin from "../supabase/supabaseAdmin";
 
 const generateImage = async (result: any) => {
     const prompt = result.content;
 
+    const ai = new GoogleGenAI({})
 
-    const response = await fetch(
-        "https://router.huggingface.co/fal-ai/fal-ai/ernie-image?_subdomain=queue",
-        {
-            headers: {
-                Authorization: `Bearer ${process.env.HF_TOKEN}`,
-                "Content-Type": "application/json",
-            },
-            method: "POST",
-            body: JSON.stringify(prompt),
+
+    try {
+        const response = await ai.models.generateContent({
+            model: "gemini-3.1-flash-image-preview",
+            contents: prompt,
+        });
+        for (const part of response.candidates[0].content.parts) {
+
+            if (part.inlineData) {
+                const imageData = part.inlineData.data;
+                const buffer = Buffer.from(imageData, "base64");
+                console.log(buffer)
+
+            }
         }
-    );
-    console.log("image ==========>", response)
-    const data = await response.blob();
-    return data;
+
+    } catch (error) {
+        console.log(error)
+    }
 
 
 
-}
+
+
+
+
+    // const fileName = `posts/${Date.now()}.png`;
+
+    // const { error: uploadError } = await supabaseAdmin.storage
+    //     .from("post-images")
+    //     .upload(fileName, blob, {
+    //         contentType: "image/png",
+    //     });
+
+    // if (uploadError) throw uploadError;
+
+    // // 🔹 Step 3: Generate signed URL (PRIVATE bucket safe)
+    // const { data, error: urlError } = await supabaseAdmin.storage
+    //     .from("post-images")
+    //     .createSignedUrl(fileName, 60 * 60);
+
+    // if (urlError) throw urlError;
+
+    // return {
+    //     success: true,
+    //     imageURL: data.signedUrl,
+    // };
+};
+
 export default generateImage;
-
-    // try {
-    //     console.log("prompt ================>")
-    //     console.log(prompt)
-
-    //     // Build the Pollinations URL
-    //     const encodedPrompt = encodeURIComponent(prompt);
-    //     const imageURL = `https://image.pollinations.ai/prompt/${encodedPrompt}?model=flux&width=${516}&height=${290}&nologo=true&enhance=true`;
-    //     // Optional: You can fetch it here to verify or convert to base64 if needed
-    //     const response = await fetch(imageURL);
-
-    //     if (!response.ok) {
-    //         throw new Error('Failed to generate image');
-    //     }
-
-    //     return {
-    //         imageURL,
-    //         success: true
-    //     };
-
-    // } catch (error) {
-    //     console.log("image genaration failed ==> ", error)
-    // }

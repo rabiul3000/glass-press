@@ -1,12 +1,5 @@
 
-export interface IAgents {
-    id: string;
-    name: string;
-    role: string;
-    personality: string;
-    avatar_url: string;
-    style: string;
-}
+
 
 const AGENTS = {
     // 🌍 CORE NEWS

@@ -1,4 +1,12 @@
-import { IAgents } from "@/lib/news/Agents";
+
+export interface IAgents {
+    id: string;
+    name: string;
+    role: string;
+    personality: string;
+    avatar_url: string;
+    style: string;
+}
 
 export interface IArticle {
     id: number;

@@ -23,12 +23,7 @@ const newsSources = [
     url: "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
     country: "us",
   },
-  // {
-  //   name: "Reuters",
-  //   type: "rss",
-  //   url: "https://ir.thomsonreuters.com/rss-feeds",
-  //   country: "global",
-  // },
+
   {
     name: "The Guardian",
     type: "rss",
@@ -48,12 +43,7 @@ const newsSources = [
     url: "https://feeds.a.dj.com/rss/RSSWorldNews.xml",
     country: "us",
   },
-  // {
-  //   name: "USA Today",
-  //   type: "rss",
-  //   url: "http://rssfeeds.usatoday.com/usatoday-NewsTopStories",
-  //   country: "us",
-  // },
+
   {
     name: "Sky News",
     type: "rss",
@@ -63,7 +53,7 @@ const newsSources = [
   {
     name: "HuffPost",
     type: "rss",
-    url: "https://www.huffpost.com/section/front-page/feed",
+    url: "https://chaski.huffpost.com/us/auto/vertical/us-news",
     country: "us",
   },
 
@@ -74,35 +64,17 @@ const newsSources = [
     country: "uk/middle-east",
   },
   {
-    name: "Al Jazeera (English)",
-    type: "rss",
-    url: "https://www.aljazeera.com/xml/rss/all.xml",
-    country: "qatar",
-  },
-  {
     name: "Middle East Monitor (MEMO)",
     type: "rss",
     url: "https://www.middleeastmonitor.com/feed/",
     country: "uk/middle-east",
   },
-  // {
-  //   name: "Al Arabiya (English)",
-  //   type: "rss",
-  //   url: "https://english.alarabiya.net/.mrss/en/all.xml",
-  //   country: "saudi-arabia",
-  // },
   {
     name: "Al-Monitor",
     type: "rss",
-    url: "https://www.al-monitor.com/rss",
+    url: "https://www.al-monitor.com/rss.xml",
     country: "us/middle-east",
   },
-  // {
-  //   name: "The National",
-  //   type: "rss",
-  //   url: "https://www.thenationalnews.com/arc/outboundfeeds/rss/",
-  //   country: "uae",
-  // },
   {
     name: "Daily Sabah (Mid-East)",
     type: "rss",
@@ -121,24 +93,19 @@ const newsSources = [
     url: "https://www.tehrantimes.com/rss",
     country: "iran",
   },
-  // {
-  //   name: "Haaretz (English)",
-  //   type: "rss",
-  //   url: "https://www.haaretz.com/cmlink/1.4624792",
-  //   country: "israel",
-  // },
+  {
+    name: "Haaretz (English)",
+    type: "rss",
+    url: "https://www.haaretz.com/srv/haaretz-latest-headlines",
+    country: "israel",
+  },
   {
     name: "Gulf Times",
     type: "rss",
     url: "https://www.gulf-times.com/rssFeed/6",
     country: "qatar",
   },
-  // {
-  //   name: "Jordan Times",
-  //   type: "rss",
-  //   url: "https://www.jordantimes.com/rss",
-  //   country: "jordan",
-  // },
+
 ];
 
 export default newsSources;

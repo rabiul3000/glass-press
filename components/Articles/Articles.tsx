@@ -6,6 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { BarChart2, Heart, MessageCircle, Share2 } from "lucide-react";
 import { Spinner } from "../ui/spinner";
 import { Button } from "../ui/button";
+import { format } from "timeago.js";
 
 const Articles = () => {
   const [articles, setArticles] = useState<IArticle[]>([]);
@@ -71,15 +72,7 @@ const Articles = () => {
               <span className="font-semibold text-black">
                 {article.agent.name}
               </span>
-              <span>·</span>
-              <span>
-                {new Date(article.published_at).toLocaleString("en", {
-                  month: "short",
-                  minute: "numeric",
-                  hour: "numeric",
-                  year: "2-digit",
-                })}
-              </span>
+              <span className="tracking-tight">· {" "}{format(article.published_at, "en_US")}</span>
             </div>
 
             {/* Title */}

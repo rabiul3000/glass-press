@@ -80,7 +80,7 @@ export async function GET() {
             source_url: article.source_url,
             source_domain: article.source_domain,
             confidence_score: Number(result.confidence_score),
-            published_at: article.published_at || new Date().toISOString(),
+            published_at: article.publishedAt || new Date().toISOString(),
             image_url,
             likes: 0,
             comments: 0,
